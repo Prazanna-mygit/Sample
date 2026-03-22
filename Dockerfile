@@ -12,13 +12,13 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Copy package.json and package-lock.json first (cache npm install)
-COPY package*.json ./
+COPY src/package*.json ./
 
 # Install Node.js dependencies
 RUN npm install
 
 # Copy the rest of the app source
-COPY . .
+COPY src/ ./
 
 # Expose port your app runs on
 EXPOSE 8080
