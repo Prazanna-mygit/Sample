@@ -1,17 +1,19 @@
-# Use an official Node.js image (replace with your app's base)
-FROM node:18
+# Use Ubuntu as base
+FROM ubuntu:22.04
 
-# Set working directory
+# Install Node.js 20.x and npm
+RUN apt-get update && \
+    apt-get install -y curl build-essential && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Copy app source
 COPY . .
 
-# Install dependencies
 RUN npm install
 
-# Expose port your app runs on
 EXPOSE 8080
 
-# Start the app
 CMD ["npm", "start"]
